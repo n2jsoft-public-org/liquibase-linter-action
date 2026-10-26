@@ -6,7 +6,8 @@
     ":semanticCommits",
     ":prHourlyLimit2",
     "helpers:pinGitHubActionDigests",
-    "schedule:weekly"
+    "schedule:weekly",
+    "security:minimumReleaseAgeNpm"
   ],
   "labels": ["dependencies"],
   "timezone": "Europe/Paris",
