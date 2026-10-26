@@ -12,6 +12,20 @@
   "labels": ["dependencies"],
   "timezone": "Europe/Paris",
   "ignorePaths": ["**/dist/**"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Default liquibase-linter version shipped by the action, and its mentions in the README",
+      "managerFilePatterns": ["/^action\\.yaml$/", "/^README\\.md$/"],
+      "matchStrings": [
+        "# renovate: liquibase-linter\\s+default: '(?<currentValue>v[^']+)'",
+        "\\| `version`\\s+\\| No\\s+\\| `(?<currentValue>v[^`]+)`",
+        "\\n\\s+version: (?<currentValue>v\\d+\\.\\d+\\.\\d+)\\n"
+      ],
+      "depNameTemplate": "n2jsoft-public-org/liquibase-linter",
+      "datasourceTemplate": "github-releases"
+    }
+  ],
   "packageRules": [
     {
       "description": "The action runs on node24 (action.yaml), so keep Node and its types on that major",
@@ -34,6 +48,12 @@
       "matchUpdateTypes": ["minor", "patch", "digest", "pin"],
       "automerge": true,
       "platformAutomerge": false
+    },
+    {
+      "description": "liquibase-linter is still 0.x, where a minor bump can break the output the action parses: review those PRs by hand",
+      "matchDepNames": ["n2jsoft-public-org/liquibase-linter"],
+      "matchCurrentVersion": "/^v?0\\./",
+      "automerge": false
     }
   ]
 }
